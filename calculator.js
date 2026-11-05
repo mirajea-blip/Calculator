@@ -3,6 +3,23 @@ let number2 = null;
 let operator = null; 
 
 const numberButtons = Array.from(document.querySelectorAll(".numbers button"));
+const displayScreen = document.querySelector("p");
+
+numberButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        if (number1 == null) {
+            number1 = parseInt(button.textContent); 
+        } else if (number2 == null) {
+            number2 = parseInt(button.textContent);
+        } else {
+            number1 = parseInt(button.textContent);
+        }
+
+        displayScreen.textContent = button.textContent;
+        
+    });
+});
 
 function operate(number1, number2, operator) { 
     switch (operator) {
