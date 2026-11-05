@@ -3,7 +3,6 @@ let number2;
 let operator; 
 
 function operate(number1, number2, operator) { 
-
     switch (operator) {
     case "+":
         return add(number1, number2);
@@ -20,8 +19,6 @@ function operate(number1, number2, operator) {
     default:
         return "Invalid operator"
     }
-
-
 }
 
 function add(number1, number2) {
