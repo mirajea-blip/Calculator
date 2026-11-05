@@ -1,6 +1,6 @@
-let number1;
-let number2;
-let operator; 
+let number1 = null;
+let number2 = null;
+let operator = null; 
 
 const numberButtons = Array.from(document.querySelectorAll(".numbers button"));
 
