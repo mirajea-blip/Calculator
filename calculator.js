@@ -2,6 +2,8 @@ let number1;
 let number2;
 let operator; 
 
+const numberButtons = Array.from(document.querySelectorAll(".numbers button"));
+
 function operate(number1, number2, operator) { 
     switch (operator) {
     case "+":
