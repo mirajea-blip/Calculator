@@ -3,6 +3,7 @@ let number2 = null;
 let operator = null; 
 
 const numberButtons = Array.from(document.querySelectorAll(".numbers button"));
+const operatorButtons = Array.from(document.querySelectorAll(".operators button"));
 const displayScreen = document.querySelector("p");
 
 numberButtons.forEach((button) => {
@@ -16,6 +17,15 @@ numberButtons.forEach((button) => {
             number1 = parseInt(button.textContent);
         }
 
+        displayScreen.textContent = button.textContent;
+        
+    });
+});
+
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        operator = button.textContent.toString()
         displayScreen.textContent = button.textContent;
         
     });
