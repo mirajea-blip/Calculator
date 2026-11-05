@@ -2,6 +2,28 @@ let number1;
 let number2;
 let operator; 
 
+function operate(number1, number2, operator) { 
+
+    switch (operator) {
+    case "+":
+        return add(number1, number2);
+        break;
+    case "-":
+        return substract(number1, number2);
+        break;
+    case "*":
+        return multiply(number1, number2);
+        break;
+    case "/":
+        return divide(number1, number2);
+        break;
+    default:
+        return "Invalid operator"
+    }
+
+
+}
+
 function add(number1, number2) {
     return number1 + number2
 }
