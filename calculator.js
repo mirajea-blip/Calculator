@@ -58,7 +58,7 @@ function operate(number1, number2, operator) {
     case "*":
         return multiply(number1, number2);
         break;
-    case "/":
+    case "÷":
         return divide(number1, number2);
         break;
     default:
