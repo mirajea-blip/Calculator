@@ -38,10 +38,7 @@ operatorButtons.forEach((button) => {
 equalButton.addEventListener("click", () => {
     if ((number1Array != []) && (number2Array != []) && (operator != null)) {
 
-        const number1 = computeNumber(number1Array);
-        const number2 = computeNumber(number2Array);
-
-        const result = operate(number1, number2, operator);
+        const result = operate(number1Array, number2Array, operator);
         displayScreen.textContent = result;
 
         number2Array = [];
@@ -52,7 +49,11 @@ equalButton.addEventListener("click", () => {
 });
 
 
-function operate(number1, number2, operator) { 
+function operate(number1Array, number2Array, operator) { 
+
+    const number1 = computeNumber(number1Array);
+    const number2 = computeNumber(number2Array);
+
     switch (operator) {
     case "+":
         return add(number1, number2);
