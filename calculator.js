@@ -1,5 +1,5 @@
-let number1 = null;
-let number2 = null;
+let number1Array = [];
+let number2Array = [];
 let operator = null; 
 
 const numberButtons = Array.from(document.querySelectorAll(".numbers button"));
@@ -12,15 +12,16 @@ const displayScreen = document.querySelector("p");
 numberButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
-        if (number1 == null) {
-            number1 = parseInt(button.textContent); 
-        } else if (number2 == null) {
-            number2 = parseInt(button.textContent);
-        } else {
-            number1 = parseInt(button.textContent);
-        }
+        if (operator == null) {
 
-        displayScreen.textContent = button.textContent;
+            number1Array.unshift(parseInt(button.textContent));
+            displayScreen.textContent = computeNumber(number1Array).toString();
+
+        } else {
+
+            number2Array.unshift(parseInt(button.textContent));
+            displayScreen.textContent = computeNumber(number2Array).toString();
+        }
         
     });
 });
@@ -35,17 +36,21 @@ operatorButtons.forEach((button) => {
 });
 
 equalButton.addEventListener("click", () => {
-    if ((number1 != null) && (number2 != null) && (operator != null)) {
+    if ((number1Array != []) && (number2Array != []) && (operator != null)) {
+
+        const number1 = computeNumber(number1Array);
+        const number2 = computeNumber(number2Array);
 
         const result = operate(number1, number2, operator);
         displayScreen.textContent = result;
 
-        number2 = null;
-        number1 = null;
+        number2Array = [];
+        number1Array = [];
         operator = null;
 
     }
 });
+
 
 function operate(number1, number2, operator) { 
     switch (operator) {
@@ -80,4 +85,13 @@ function multiply(number1, number2) {
 
 function divide(number1, number2) {
     return number1/number2 
+}
+
+function computeNumber (numberArray) {
+    const number = numberArray.reduce((number, currentDigit, index) => {
+        number += currentDigit*Math.pow(10, index)
+        return number
+    }, 0)
+
+    return number
 }
