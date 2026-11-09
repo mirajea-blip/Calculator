@@ -15,12 +15,10 @@ numberButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
         if (operator == null) {
-
             number1Array.unshift(parseInt(button.textContent));
             displayScreen.textContent = computeNumber(number1Array).toString();
 
         } else {
-
             number2Array.unshift(parseInt(button.textContent));
             displayScreen.textContent = computeNumber(number2Array).toString();
         }
@@ -36,7 +34,7 @@ operatorButtons.forEach((button) => {
             const result = operate(number1Array, number2Array, operator);
             displayScreen.textContent = result;
 
-            number1Array = Array.from(String(result).split('').reverse().join(''), Number);
+            number1Array = Array.from(String(result).split('').reverse().join(''));
             number2Array = [];
 
         }
@@ -52,18 +50,23 @@ equalButton.addEventListener("click", () => {
         const result = operate(number1Array, number2Array, operator);
         displayScreen.textContent = result;
 
-        number1Array = Array.from(String(result).split('').reverse().join(''), Number);
+        number1Array = Array.from(String(result).split('').reverse().join(''));
         number2Array = [];
+
         operator = null;
+
+        console.log("the number1array", number1Array);
 
     }
 });
 
 clearButton.addEventListener("click", () => {
+
     number1Array=[];
     number2Array = [];
     operator = null;
     displayScreen.textContent = "";
+    
 })
 
 function operate(number1Array, number2Array, operator) { 
@@ -106,10 +109,27 @@ function divide(number1, number2) {
 }
 
 function computeNumber (numberArray) {
-    const number = numberArray.reduce((number, currentDigit, index) => {
-        number += currentDigit*Math.pow(10, index)
-        return number
-    }, 0)
 
-    return number
+    function getNumberFromArray(numberArray) { 
+        
+        const numberFromArray = numberArray.reduce((number, currentDigit, index) => {
+            number += currentDigit*Math.pow(10, index)
+            return number
+        }, 0)
+
+        return numberFromArray
+
+    }
+
+    if (numberArray[numberArray.length - 1] === "-") {
+
+        numberArray.pop();
+
+        return getNumberFromArray(numberArray)*(-1)
+
+    } else {
+        return getNumberFromArray(numberArray)
+    }
+
+    
 }
