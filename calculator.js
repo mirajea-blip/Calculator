@@ -41,8 +41,8 @@ equalButton.addEventListener("click", () => {
         const result = operate(number1Array, number2Array, operator);
         displayScreen.textContent = result;
 
+        number1Array = Array.from(String(result).split('').reverse().join(''), Number);
         number2Array = [];
-        number1Array = [];
         operator = null;
 
     }
