@@ -29,8 +29,17 @@ numberButtons.forEach((button) => {
 operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
+        if (number2Array.length !== 0) {
+
+            const result = operate(number1Array, number2Array, operator);
+            displayScreen.textContent = result;
+
+            number1Array = Array.from(String(result).split('').reverse().join(''), Number);
+            number2Array = [];
+
+        }
+
         operator = button.textContent.toString()
-        displayScreen.textContent = button.textContent;
         
     });
 });
