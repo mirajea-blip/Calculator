@@ -7,6 +7,8 @@ const operatorButtons = Array.from(document.querySelectorAll(".operators button"
 
 const equalButton = document.querySelector("#equalButton");
 
+const clearButton = document.querySelector("#clearButton");
+
 const displayScreen = document.querySelector("p");
 
 numberButtons.forEach((button) => {
@@ -57,6 +59,12 @@ equalButton.addEventListener("click", () => {
     }
 });
 
+clearButton.addEventListener("click", () => {
+    number1Array=[];
+    number2Array = [];
+    operator = null;
+    displayScreen.textContent = "";
+})
 
 function operate(number1Array, number2Array, operator) { 
 
