@@ -66,7 +66,7 @@ clearButton.addEventListener("click", () => {
     number2Array = [];
     operator = null;
     displayScreen.textContent = "";
-    
+
 })
 
 function operate(number1Array, number2Array, operator) { 
@@ -115,7 +115,7 @@ function computeNumber (numberArray) {
         const numberFromArray = numberArray.reduce((number, currentDigit, index) => {
             number += currentDigit*Math.pow(10, index)
             return number
-        }, 0)
+        }, 0);
 
         return numberFromArray
 
