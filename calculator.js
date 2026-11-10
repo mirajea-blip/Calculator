@@ -50,7 +50,7 @@ equalButton.addEventListener("click", () => {
         const result = operate(number1Array, number2Array, operator);
         displayScreen.textContent = result;
 
-        number1Array = Array.from(String(result).split('').reverse().join(''));
+        number1Array = Array.from(String(result).split('').join(''));
         number2Array = [];
 
         operator = null;
@@ -92,6 +92,46 @@ function operate(number1Array, number2Array, operator) {
     }
 }
 
+function computeNumber(numberArray) {
+
+    function getNumberFromArray(numberArray) { 
+        
+        const numberFromArray = numberArray.reduce((number, currentDigit, index) => {
+            number += currentDigit*Math.pow(10, index)
+            return number
+        }, 0);
+
+        return numberFromArray
+
+    }
+
+    let sign = 1;
+
+    if (numberArray[0] === "-") {
+
+        numberArray.shift();
+
+        sign = -1;
+
+    } 
+    
+    if (numberArray.includes(".")) {
+
+        const splitIndex = numberArray.indexOf(".");
+
+        const integerPart = numberArray.slice(0, splitIndex).reverse();
+        const fractionPart = numberArray.slice(splitIndex + 1).reverse();
+        
+        const number = getNumberFromArray(integerPart) + getNumberFromArray(fractionPart) * Math.pow(10, -fractionPart.length);
+
+        return sign*number 
+
+    } else {
+        return sign*getNumberFromArray(numberArray) 
+    }
+    
+}
+
 function add(number1, number2) {
     return number1 + number2
 }
@@ -106,30 +146,4 @@ function multiply(number1, number2) {
 
 function divide(number1, number2) {
     return number1/number2 
-}
-
-function computeNumber (numberArray) {
-
-    function getNumberFromArray(numberArray) { 
-        
-        const numberFromArray = numberArray.reduce((number, currentDigit, index) => {
-            number += currentDigit*Math.pow(10, index)
-            return number
-        }, 0);
-
-        return numberFromArray
-
-    }
-
-    if (numberArray[numberArray.length - 1] === "-") {
-
-        numberArray.pop();
-
-        return getNumberFromArray(numberArray)*(-1)
-
-    } else {
-        return getNumberFromArray(numberArray)
-    }
-
-    
 }
