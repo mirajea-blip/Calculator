@@ -32,7 +32,7 @@ operatorButtons.forEach((button) => {
         if (number2Array.length !== 0) {
 
             const result = operate(number1Array, number2Array, operator);
-            displayScreen.textContent = result;
+            displayScreen.textContent = result.toFixed(2);
 
             number1Array = Array.from(String(result).split('').reverse().join(''));
             number2Array = [];
@@ -48,14 +48,12 @@ equalButton.addEventListener("click", () => {
     if ((number1Array != []) && (number2Array != []) && (operator != null)) {
 
         const result = operate(number1Array, number2Array, operator);
-        displayScreen.textContent = result;
+        displayScreen.textContent = result.toFixed(2);
 
         number1Array = Array.from(String(result).split('').join(''));
         number2Array = [];
 
         operator = null;
-
-        console.log("the number1array", number1Array);
 
     }
 });
