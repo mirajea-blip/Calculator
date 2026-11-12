@@ -15,12 +15,21 @@ numberButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
         if (operator == null) {
+
             number1Array.unshift(parseInt(button.textContent));
             displayScreen.textContent = computeNumber(number1Array).toString();
 
-        } else {
+        } else if (operator !== "=") {
+
             number2Array.unshift(parseInt(button.textContent));
             displayScreen.textContent = computeNumber(number2Array).toString();
+
+        } else {
+
+            number1Array = [parseInt(button.textContent)];
+            operator  = null; 
+            displayScreen.textContent = computeNumber(number1Array).toString(); 
+
         }
         
     });
@@ -32,9 +41,21 @@ operatorButtons.forEach((button) => {
         if (number2Array.length !== 0) {
 
             const result = operate(number1Array, number2Array, operator);
-            displayScreen.textContent = result.toFixed(2);
 
-            number1Array = Array.from(String(result).split('').reverse().join(''));
+            if (result === null) {
+
+
+                displayScreen.textContent = `Can't divide by zero : enter a new ` + 
+                `second operand for your division or start a new operation with the first ` + 
+                `operand being ${computeNumber(number1Array)}`; 
+    
+            } else {
+
+                displayScreen.textContent = result.toFixed(2);
+                number1Array = Array.from(String(result).split('').reverse().join(''));
+
+            }
+            
             number2Array = [];
 
         }
@@ -48,12 +69,22 @@ equalButton.addEventListener("click", () => {
     if ((number1Array != []) && (number2Array != []) && (operator != null)) {
 
         const result = operate(number1Array, number2Array, operator);
-        displayScreen.textContent = result.toFixed(2);
 
-        number1Array = Array.from(String(result).split('').join(''));
+        if (result === null) {
+
+            displayScreen.textContent = `Can't divide by zero : enter a new ` + 
+            `second operand for your division or start a new operation with the first ` + 
+            `operand being ${computeNumber(number1Array)}`; 
+
+        } else {
+
+            displayScreen.textContent = result.toFixed(2);
+            number1Array = Array.from(String(result).split('').join(''));
+            operator = "=";
+
+        }
+
         number2Array = [];
-
-        operator = null;
 
     }
 });
@@ -67,7 +98,11 @@ clearButton.addEventListener("click", () => {
 
 })
 
-function operate(number1Array, number2Array, operator) { 
+function operate(number1Array, number2Array, operator) {
+    
+    if ((computeNumber(number2Array) === 0) && (operator === "÷")) {
+        return null;
+    } 
 
     const number1 = computeNumber(number1Array);
     const number2 = computeNumber(number2Array);
