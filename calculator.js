@@ -9,6 +9,8 @@ const equalButton = document.querySelector("#equalButton");
 
 const clearButton = document.querySelector("#clearButton");
 
+const backspaceButton = document.querySelector("#backspace");
+
 const displayScreen = document.querySelector("p");
 
 numberButtons.forEach((button) => {
@@ -44,7 +46,6 @@ operatorButtons.forEach((button) => {
 
             if (result === null) {
 
-
                 displayScreen.textContent = `Can't divide by zero : enter a new ` + 
                 `second operand for your division or start a new operation with the first ` + 
                 `operand being ${computeNumber(number1Array)}`; 
@@ -66,7 +67,7 @@ operatorButtons.forEach((button) => {
 });
 
 equalButton.addEventListener("click", () => {
-    if ((number1Array != []) && (number2Array != []) && (operator != null)) {
+    if ((number1Array.length !== 0) && (number2Array.length !== 0) && (operator != null)) {
 
         const result = operate(number1Array, number2Array, operator);
 
@@ -96,7 +97,28 @@ clearButton.addEventListener("click", () => {
     operator = null;
     displayScreen.textContent = "";
 
-})
+});
+
+backspaceButton.addEventListener("click", () => {
+
+    if ((number1Array.length !== 0) && (operator === null)) {
+
+        console.log("in");
+        
+        number1Array = number1Array.slice(1);
+        displayScreen.textContent = computeNumber(number1Array);
+
+    } else if ((number2Array.length !== 0)) {
+
+        console.log("here");
+        console.log(number2Array.length); 
+
+        number2Array = number2Array.slice(1);
+        displayScreen.textContent = computeNumber(number2Array);
+
+    }
+ 
+});
 
 function operate(number1Array, number2Array, operator) {
     
