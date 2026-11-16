@@ -13,6 +13,8 @@ const backspaceButton = document.querySelector("#backspace");
 
 const displayScreen = document.querySelector("p");
 
+const periodButton = document.querySelector("#period");
+
 numberButtons.forEach((button) => {
     button.addEventListener("click", () => {
 
@@ -116,6 +118,29 @@ backspaceButton.addEventListener("click", () => {
  
 });
 
+periodButton.addEventListener("click", () => {
+
+    /* 
+    - The period button can't be used before a digit is entered or right after
+      a click on an operator. 
+    - If there is no digit entered after the period the operation is computed as if a zero was behind the period
+    */
+
+    if ((number1Array.length !== 0) && (operator === null)) {
+        
+       number1Array.unshift(periodButton.textContent);
+       displayScreen.textContent = displayScreen.textContent + periodButton.textContent;
+
+    } else if ((number2Array.length !== 0)) {
+
+        number2Array.unshift(periodButton.textContent);
+        displayScreen.textContent = displayScreen.textContent + periodButton.textContent;
+
+    }
+
+})
+
+
 function operate(number1Array, number2Array, operator) {
     
     if ((computeNumber(number2Array) === 0) && (operator === "÷")) {
@@ -172,9 +197,6 @@ function computeNumber(numberArray) {
 
         const fractionPart = numberArray.slice(0, splitIndex).reverse();
         const integerPart = numberArray.slice(splitIndex + 1).reverse();
-
-        console.log("fraction part", fractionPart);
-        console.log("fraction part computed", getNumberFromArray(fractionPart) * Math.pow(10, -fractionPart.length));
         
         const number = getNumberFromArray(integerPart) + getNumberFromArray(fractionPart) * Math.pow(10, -fractionPart.length);
 
