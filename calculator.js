@@ -19,18 +19,18 @@ numberButtons.forEach((button) => {
         if (operator == null) {
 
             number1Array.unshift(parseInt(button.textContent));
-            displayScreen.textContent = computeNumber(number1Array).toString();
+            displayScreen.textContent = displayScreen.textContent + button.textContent;
 
         } else if (operator !== "=") {
 
             number2Array.unshift(parseInt(button.textContent));
-            displayScreen.textContent = computeNumber(number2Array).toString();
+            displayScreen.textContent = displayScreen.textContent + button.textContent;
 
         } else {
 
             number1Array = [parseInt(button.textContent)];
             operator  = null; 
-            displayScreen.textContent = computeNumber(number1Array).toString(); 
+            displayScreen.textContent = button.textContent; 
 
         }
         
@@ -61,7 +61,8 @@ operatorButtons.forEach((button) => {
 
         }
 
-        operator = button.textContent.toString()
+        operator = button.textContent.toString();
+        displayScreen.textContent = displayScreen.textContent + button.textContent;
         
     });
 });
@@ -80,7 +81,7 @@ equalButton.addEventListener("click", () => {
         } else {
 
             displayScreen.textContent = result.toFixed(2);
-            number1Array = Array.from(String(result).split('').join(''));
+            number1Array = Array.from(String(result).split('').join('')).reverse();
             operator = "=";
 
         }
@@ -102,19 +103,14 @@ clearButton.addEventListener("click", () => {
 backspaceButton.addEventListener("click", () => {
 
     if ((number1Array.length !== 0) && (operator === null)) {
-
-        console.log("in");
         
         number1Array = number1Array.slice(1);
-        displayScreen.textContent = computeNumber(number1Array);
+        displayScreen.textContent = displayScreen.textContent.slice(0,-1);
 
     } else if ((number2Array.length !== 0)) {
 
-        console.log("here");
-        console.log(number2Array.length); 
-
         number2Array = number2Array.slice(1);
-        displayScreen.textContent = computeNumber(number2Array);
+        displayScreen.textContent = displayScreen.textContent.slice(0,-1);
 
     }
  
