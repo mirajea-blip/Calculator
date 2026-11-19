@@ -11,7 +11,8 @@ const clearButton = document.querySelector("#clearButton");
 
 const backspaceButton = document.querySelector("#backspace");
 
-const displayScreen = document.querySelector("p");
+const computationdisplayScreen = document.querySelector("#computationDisplay");
+const errorDisplayScreen = document.querySelector("#errorDisplay");
 
 const periodButton = document.querySelector("#period");
 
@@ -21,18 +22,18 @@ numberButtons.forEach((button) => {
         if (operator == null) {
 
             number1Array.unshift(parseInt(button.textContent));
-            displayScreen.textContent = displayScreen.textContent + button.textContent;
+            computationdisplayScreen.textContent = computationdisplayScreen.textContent + button.textContent;
 
         } else if (operator !== "=") {
 
             number2Array.unshift(parseInt(button.textContent));
-            displayScreen.textContent = displayScreen.textContent + button.textContent;
+            computationdisplayScreen.textContent = computationdisplayScreen.textContent + button.textContent;
 
         } else {
 
             number1Array = [parseInt(button.textContent)];
             operator  = null; 
-            displayScreen.textContent = button.textContent; 
+            computationdisplayScreen.textContent = button.textContent; 
 
         }
         
@@ -48,23 +49,29 @@ operatorButtons.forEach((button) => {
 
             if (result === null) {
 
-                displayScreen.textContent = `Can't divide by zero : enter a new ` + 
-                `second operand for your division or start a new operation with the first ` + 
-                `operand being ${computeNumber(number1Array)}`; 
+                errorDisplayScreen.textContent = `Can't divide by zero : selecte a new operand` + 
+                `and a second operator`; 
+
+                operator = null;
+
+                computationdisplayScreen.textContent = computeNumber(number1Array);
     
             } else {
 
-                displayScreen.textContent = result.toFixed(2);
+                computationdisplayScreen.textContent = result.toFixed(2) + button.textContent;
+                operator = button.textContent.toString();
                 number1Array = Array.from(String(result).split('').reverse().join(''));
 
             }
             
             number2Array = [];
 
-        }
+        } else {
 
-        operator = button.textContent.toString();
-        displayScreen.textContent = displayScreen.textContent + button.textContent;
+            operator = button.textContent.toString();
+            computationdisplayScreen.textContent = computationdisplayScreen.textContent + button.textContent;
+
+        }
         
     });
 });
@@ -76,13 +83,16 @@ equalButton.addEventListener("click", () => {
 
         if (result === null) {
 
-            displayScreen.textContent = `Can't divide by zero : enter a new ` + 
-            `second operand for your division or start a new operation with the first ` + 
-            `operand being ${computeNumber(number1Array)}`; 
+            errorDisplayScreen.textContent = `Can't divide by zero : selecte a new operand` + 
+            `and a second operator`; 
+
+            operator = null;
+
+            computationdisplayScreen.textContent = computeNumber(number1Array);
 
         } else {
 
-            displayScreen.textContent = result.toFixed(2);
+            computationdisplayScreen.textContent = result.toFixed(2);
             number1Array = Array.from(String(result).split('').join('')).reverse();
             operator = "=";
 
@@ -98,7 +108,7 @@ clearButton.addEventListener("click", () => {
     number1Array=[];
     number2Array = [];
     operator = null;
-    displayScreen.textContent = "";
+    computationdisplayScreen.textContent = "";
 
 });
 
@@ -107,12 +117,12 @@ backspaceButton.addEventListener("click", () => {
     if ((number1Array.length !== 0) && (operator === null)) {
         
         number1Array = number1Array.slice(1);
-        displayScreen.textContent = displayScreen.textContent.slice(0,-1);
+        computationdisplayScreen.textContent = computationdisplayScreen.textContent.slice(0,-1);
 
     } else if ((number2Array.length !== 0)) {
 
         number2Array = number2Array.slice(1);
-        displayScreen.textContent = displayScreen.textContent.slice(0,-1);
+        computationdisplayScreen.textContent = computationdisplayScreen.textContent.slice(0,-1);
 
     }
  
@@ -126,22 +136,30 @@ periodButton.addEventListener("click", () => {
     - If there is no digit entered after the period the operation is computed as if a zero was behind the period
     */
 
-    if (displayScreen.textContent.includes(".")) {
+    if (computationdisplayScreen.textContent.includes(".")) {
 
         return 
 
     } else if ((number1Array.length !== 0) && (operator === null)) {
         
        number1Array.unshift(periodButton.textContent);
-       displayScreen.textContent = displayScreen.textContent + periodButton.textContent;
+       computationdisplayScreen.textContent = computationdisplayScreen.textContent + periodButton.textContent;
 
     } else if ((number2Array.length !== 0)) {
 
         number2Array.unshift(periodButton.textContent);
-        displayScreen.textContent = displayScreen.textContent + periodButton.textContent;
+        computationdisplayScreen.textContent = computationdisplayScreen.textContent + periodButton.textContent;
 
     }
 
+});
+
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (errorDisplayScreen.textContent.length !== 0) {
+            errorDisplayScreen.textContent = "";
+        }
+    });
 })
 
 
