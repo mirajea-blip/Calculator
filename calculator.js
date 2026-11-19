@@ -126,7 +126,11 @@ periodButton.addEventListener("click", () => {
     - If there is no digit entered after the period the operation is computed as if a zero was behind the period
     */
 
-    if ((number1Array.length !== 0) && (operator === null)) {
+    if (displayScreen.textContent.includes(".")) {
+
+        return 
+
+    } else if ((number1Array.length !== 0) && (operator === null)) {
         
        number1Array.unshift(periodButton.textContent);
        displayScreen.textContent = displayScreen.textContent + periodButton.textContent;
