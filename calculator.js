@@ -205,9 +205,9 @@ function computeNumber(numberArray) {
 
     let sign = 1;
 
-    if (numberArray[0] === "-") {
+    if (numberArray[numberArray.length - 1] === "-") {
 
-        numberArray.shift();
+        numberArray.pop();
 
         sign = -1;
 
@@ -217,8 +217,8 @@ function computeNumber(numberArray) {
 
         const splitIndex = numberArray.indexOf(".");
 
-        const fractionPart = numberArray.slice(0, splitIndex).reverse();
-        const integerPart = numberArray.slice(splitIndex + 1).reverse();
+        const integerPart = numberArray.slice(0, splitIndex).reverse();
+        const fractionPart = numberArray.slice(splitIndex + 1).reverse();
         
         const number = getNumberFromArray(integerPart) + getNumberFromArray(fractionPart) * Math.pow(10, -fractionPart.length);
 
