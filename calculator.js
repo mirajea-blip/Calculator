@@ -217,8 +217,10 @@ function computeNumber(numberArray) {
 
         const splitIndex = numberArray.indexOf(".");
 
-        const integerPart = numberArray.slice(0, splitIndex).reverse();
-        const fractionPart = numberArray.slice(splitIndex + 1).reverse();
+        console.log("numberArray", numberArray);
+
+        const fractionPart = numberArray.slice(0, splitIndex);
+        const integerPart = numberArray.slice(splitIndex + 1);
         
         const number = getNumberFromArray(integerPart) + getNumberFromArray(fractionPart) * Math.pow(10, -fractionPart.length);
 
